@@ -1,0 +1,8 @@
+dependencies { 
+  // Vungle SDK
+  implementation 'com.vungle:publisher-sdk-android:6.4.11'
+
+  // Recommended for SDK to be able to get Android Advertising ID
+  implementation 'com.google.android.gms:play-services-basement:16.0.0'
+  implementation 'com.google.android.gms:play-services-ads-identifier:16.0.0'
+}

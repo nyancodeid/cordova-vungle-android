@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-vungle-android" version="0.1.4" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+  <name>cordova-vungle-android</name>
+
+  <engines>
+		<engine name="cordova" version=">=3.2.0" />
+	</engines>
+
+  <js-module name="NyanVungle" src="www/vungle.js">
+    <clobbers target="nyanVungle" />
+  </js-module>
+  
+  <platform name="android">
+    <preference name="APPCOMPAT_VERSION" default="27.1.1" />
+    <preference name="APPSUPPORT_VERSION" default="27.1.1" />
+
+    <config-file parent="/*" target="res/xml/config.xml">
+      <feature name="NyanVungle">
+        <param name="android-package" value="id.nyandev.cordova.vungle.android.NyanVungle" />
+      </feature>
+    </config-file>
+
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+			<activity
+        android:name="com.vungle.warren.ui.VungleActivity"
+        android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize"
+        android:launchMode="singleTop"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+
+			<receiver
+        android:name="com.vungle.warren.NetworkProviderReceiver"
+        android:enabled="false" >
+        <intent-filter>
+          <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </receiver>
+		</config-file>
+		
+		<config-file target="AndroidManifest.xml" parent="/*">
+		  <uses-permission android:name="android.permission.INTERNET" />
+		  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+		</config-file>
+    
+    <framework src="com.android.support:appcompat-v7:$APPCOMPAT_VERSION" />
+    <framework src="com.android.support:support-v4:$APPSUPPORT_VERSION" />
+    <framework custom="true" src="src/android/vungle-sdk.gradle" type="gradleReference" />
+    <dependency id="es6-promise-plugin" version="4.1.0" />
+
+    <source-file src="src/android/NyanVungle.java"
+      target-dir="src/id/nyandev/cordova/vungle/android" />
+  </platform>
+</plugin>
